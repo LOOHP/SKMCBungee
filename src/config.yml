@@ -1,0 +1,47 @@
+#Enter MYSQL details here
+MYSQL:
+  host: "host"
+  port: 3306
+  database: "database"
+  username: "username"
+  password: "password"
+
+#Servers groups together if they are within a group with the same name
+ServerGrouping:
+  Hub: "HUB"
+  Kitpvp: "KITPVP"
+  Survival: "SURVIVAL"
+  Survival_Pocket: "SURVIVAL"
+
+#Server nicknames
+ServerNicknames:
+  Hub: "Hub"
+  KitPvp: "KitPvp"
+  Survival: "&aSurvival"
+  Survival_Pocket: "&dPocket &dDimension"
+
+#Join and leave message for each server group ("" to disabled)
+#Placeholders: %SwitchTo% %Player%
+NETWORK:
+  Join: "&e>>&6&lSunKnights&e&l<< &b%Player% &6has joined the network!"
+  Leave: "&8[&cOffline&8] &c%Player% left the network."
+
+HUB:
+  Join: "&b%Player% &6has joined the lobby"
+  Leave: "&e%Player% has choosen %SwitchTo%!"
+  Switch: ""
+
+KITPVP:
+  Join: "&8[&aOnline&8] &a%Player% joined the server!"
+  Leave: "&8[&cOffline&8] &c%Player% left the server."
+  Switch: ""
+
+SURVIVAL:
+  Join: "&8[&aOnline&8] &a%Player% joined the server!"
+  Leave: "&8[&cOffline&8] &c%Player% left the server."
+  Switch: "&b%Player% &ehas travelled to %SwitchTo%&e.."
+
+DEFAULT:
+  Join: '&8[&aOnline&8] &a%Player% joined the server!'
+  Leave: '&8[&cOffline&8] &c%Player% left the server.'
+  Switch: '&8[&eSwitch&8] &e%Player% switched servers.'

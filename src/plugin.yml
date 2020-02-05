@@ -1,0 +1,30 @@
+name: SKMCBungee
+main: com.loohp.skmcbungee.Main
+version: 1.0
+author: LOOHP
+
+permissions:
+  skmc.admin.reload:
+    description: Allows the player to reload the plugin
+    default: false
+  skmc.admin.interceptcommands:
+    description: Allows the player to spy on all commands
+    default: false
+  skmc.admin.interceptchat:
+    description: Allows the player to spy on all chat messages on all servers
+    default: false
+  skmc.admin.interceptcommands.exempt:
+    description: Allows the player to bypass being spied on commands ran
+    default: false
+  skmc.admin.interceptchat.exempt:
+    description: Allows the player to bypass being spied on chat messages
+    default: false
+  skmc.admin.bsudo:
+    description: Allows the player to use bsudo
+    default: false
+  skmc.message.msg:
+    description: Allows the player to use private message related commands
+    default: false
+  skmc.message.admin:
+    description: Allows the player to have admin rights related to private messages
+    default: false
