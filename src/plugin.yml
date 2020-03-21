@@ -28,3 +28,7 @@ permissions:
   skmc.message.admin:
     description: Allows the player to have admin rights related to private messages
     default: false
+  skmc.colors:
+    default: false
+  skmc.formats:
+    default: false

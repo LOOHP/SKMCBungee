@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Map.Entry;
+
 import java.util.UUID;
 
 import com.loohp.skmcbungee.Main;
 
+import de.myzelyam.api.vanish.BungeeVanishAPI;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -111,8 +113,10 @@ public class EventsClass implements Listener {
 	    	if (!message.equals("")) {
 	    		message = message.replace("%Player%", event.getPlayer().getDisplayName());
 	    		message = message.replace("&", "§");
-	    		for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-	    			player.sendMessage(new TextComponent(message));
+	    		if (!BungeeVanishAPI.isInvisible(event.getPlayer())) {
+		    		for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+		    			player.sendMessage(new TextComponent(message));
+		    		}
 	    		}
 	    	}
     	}
@@ -133,8 +137,10 @@ public class EventsClass implements Listener {
 	    		message = message.replace("%SwitchTo%", Main.serverNickname.get(event.getPlayer().getServer().getInfo().getName()));
 	    		message = message.replace("%Player%", event.getPlayer().getDisplayName());
 	    		message = message.replace("&", "§");
-	    		for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-	    			player.sendMessage(new TextComponent(message));
+	    		if (!BungeeVanishAPI.isInvisible(event.getPlayer())) {
+		    		for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+		    			player.sendMessage(new TextComponent(message));
+		    		}
 	    		}
 	    	}
 	    	Main.playerConnect.remove(event.getPlayer());
@@ -153,12 +159,14 @@ public class EventsClass implements Listener {
 		    		message = message.replace("&", "§");
 		    		for (Entry<String, String> entry : Main.serverGrouping.entrySet()) {
 		    			if (entry.getValue().equals(Main.serverGrouping.get(event.getPlayer().getServer().getInfo().getName()))) {
-		    				for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-		    					if (player.getServer() != null) {
-		    						if (Main.serverGrouping.get(player.getServer().getInfo().getName()).equals(Main.serverGrouping.get(event.getPlayer().getServer().getInfo().getName()))) {
-		    							player.sendMessage(new TextComponent(message));
-		    						}
-		    					}
+		    				if (!BungeeVanishAPI.isInvisible(event.getPlayer())) {
+			    				for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+			    					if (player.getServer() != null) {
+			    						if (Main.serverGrouping.get(player.getServer().getInfo().getName()).equals(Main.serverGrouping.get(event.getPlayer().getServer().getInfo().getName()))) {
+			    							player.sendMessage(new TextComponent(message));
+			    						}
+			    					}
+			    				}
 		    				}
 		    				break;
 		    			}
@@ -177,12 +185,14 @@ public class EventsClass implements Listener {
     	    		message = message.replace("&", "§");
     	    		for (Entry<String, String> entry : Main.serverGrouping.entrySet()) {
 		    			if (entry.getValue().equals(Main.serverGrouping.get(event.getPlayer().getServer().getInfo().getName()))) {
-		    				for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-		    					if (player.getServer() != null) {
-		    						if (Main.serverGrouping.get(player.getServer().getInfo().getName()).equals(Main.serverGrouping.get(event.getPlayer().getServer().getInfo().getName()))) {
-		    							player.sendMessage(new TextComponent(message));
-		    						}
-		    					}
+		    				if (!BungeeVanishAPI.isInvisible(event.getPlayer())) {
+			    				for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+			    					if (player.getServer() != null) {
+			    						if (Main.serverGrouping.get(player.getServer().getInfo().getName()).equals(Main.serverGrouping.get(event.getPlayer().getServer().getInfo().getName()))) {
+			    							player.sendMessage(new TextComponent(message));
+			    						}
+			    					}
+			    				}
 		    				}
 		    				break;
 		    			}
@@ -204,12 +214,14 @@ public class EventsClass implements Listener {
 		    		message = message.replace("&", "§");
 		    		for (Entry<String, String> entry : Main.serverGrouping.entrySet()) {
 		    			if (entry.getValue().equals(Main.serverGrouping.get(Main.playerServer.get(event.getPlayer())))) {
-		    				for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-		    					if (player.getServer() != null) {
-		    						if (Main.serverGrouping.get(player.getServer().getInfo().getName()).equals(Main.serverGrouping.get(Main.playerServer.get(event.getPlayer())))) {
-		    							player.sendMessage(new TextComponent(message));
-		    						}
-		    					}
+		    				if (!BungeeVanishAPI.isInvisible(event.getPlayer())) {
+			    				for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+			    					if (player.getServer() != null) {
+			    						if (Main.serverGrouping.get(player.getServer().getInfo().getName()).equals(Main.serverGrouping.get(Main.playerServer.get(event.getPlayer())))) {
+			    							player.sendMessage(new TextComponent(message));
+			    						}
+			    					}
+			    				}
 		    				}
 		    				break;
 		    			}
@@ -221,7 +233,7 @@ public class EventsClass implements Listener {
     }
     
     @EventHandler
-    public void onPlayerChat(ChatEvent event) {
+    public void onPlayerChat(ChatEvent event) {  	
     	if (event.getMessage().toLowerCase().startsWith("/pm") || event.getMessage().toLowerCase().startsWith("/tell")) {
     		ProxiedPlayer player = (ProxiedPlayer) event.getSender();
     		event.setCancelled(true);
@@ -255,7 +267,7 @@ public class EventsClass implements Listener {
     			String chat = event.getMessage();
     			ProxyServer.getInstance().getConsole().sendMessage(new TextComponent("[Chat] " + player.getName() + " @ " + player.getServer().getInfo().getName() + " --> " + chat));
     			for (ProxiedPlayer onlinePlayer : ProxyServer.getInstance().getPlayers()) {
-    				if (onlinePlayer.hasPermission("skmc.admin.interceptchat") && !onlinePlayer.getServer().getInfo().getName().startsWith(player.getServer().getInfo().getName())) {
+    				if (onlinePlayer.hasPermission("skmc.admin.interceptchat") && !Main.serverGrouping.get(onlinePlayer.getServer().getInfo().getName()).equals(Main.serverGrouping.get(player.getServer().getInfo().getName()))) {
     						onlinePlayer.sendMessage(new TextComponent(ChatColor.GRAY + "[Chat Monitor] " + player.getName() + " @ " + player.getServer().getInfo().getName() + " --> " + chat));
     				}
     			}

@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.loohp.skmcbungee.SendCommand;
-
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -57,13 +55,15 @@ public class Main extends Plugin {
 		skmcbungee = ProxyServer.getInstance().getPluginManager().getPlugin("SKMCBungee");
 		config = ConfigurationProvider.getProvider(YamlConfiguration.class);
 		
+		getProxy().getPluginManager().registerCommand(this, new CustomSendCommand());
 		getProxy().getPluginManager().registerCommand(this, new ReloadCommand());
-		getProxy().getPluginManager().registerCommand(this, new SendCommand());
 		getProxy().getPluginManager().registerCommand(this, new SudoCommand());
 		getProxy().getPluginManager().registerCommand(this, new MsgCommand());
 		getProxy().getPluginManager().registerCommand(this, new ReplyCommand());
 		getProxy().getPluginManager().registerCommand(this, new MsgtoggleCommand());
 		getProxy().getPluginManager().registerCommand(this, new MsgadminCommand());
+		getProxy().getPluginManager().registerCommand(this, new ColorsCommand());
+		getProxy().getPluginManager().registerCommand(this, new FormatsCommand());
 		getProxy().getPluginManager().registerListener(this, new EventsClass());
         getLogger().info(ChatColor.GREEN + "SKMCBungee has been enabled!");  
         
